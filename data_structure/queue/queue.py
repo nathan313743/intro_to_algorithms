@@ -18,7 +18,7 @@ class MyQueue:
             self.back = newNode
             newNode.nodeBehind = None
             return
-        self.back.nodeBehind = newNode;
+        self.back.nodeBehind = newNode
         self.back = newNode
 
     def dequeue(self):
