@@ -45,7 +45,10 @@ class BinarySearchTree:
     def find_height_recursive(self, root):
         if root is None:
             return -1
-        return max(self.find_height_recursive(root.left), self.find_height_recursive(root.right)) + 1
+
+        result1 = self.find_height_recursive(root.left)
+        result2 = self.find_height_recursive(root.right)
+        return max(result1, result2)  + 1
 
     def find_height(self):
         return self.find_height_recursive(self.root)
@@ -55,6 +58,9 @@ class BinarySearchTree:
 
 if __name__ == '__main__':
     tree = BinarySearchTree()
+    tree.insert(3)
+    tree.insert(2)
+    tree.find_height()
     tree.insert(10)
     tree.insert(20)
     tree.insert(30)
