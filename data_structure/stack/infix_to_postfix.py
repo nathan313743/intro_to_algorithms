@@ -68,6 +68,7 @@ class InfixToPostfix:
             postFixExp.append(stack.pop())
         return postFixExp
 
+
 if __name__ == "__main__":
     infixToPostfix = InfixToPostfix()
     infixStr = "a*b+c*d-e"
