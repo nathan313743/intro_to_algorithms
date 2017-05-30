@@ -16,6 +16,8 @@ In normal algebra we use the infix notation like a+b*c. The corresponding postfi
 #-> {(ab*)(cd*)+}-e
 #-> {(ab*)(cd*)+}e-
 #-> ab*cd*+e-
+
+
 class InfixToPostfix:
 
     def is_operand(self, char):
@@ -30,40 +32,44 @@ class InfixToPostfix:
         if char == "*":
             return 7
         if char == "/":
-            6
+            return 6
         if char == "+":
-            5
+            return 5
         if char == "-":
-            4
+            return 4
+        return 0
 
-    def has_lower_precedence(self, char1, stack_item):
-    # If the operator is greater than the one in the stack
-    # pop the stack until it finds one less than itself.
-    
-        if self.operator_val in level1:
+    def has_lower_precedence(self, operator, stack_operator):
+        # If the operator is greater than the one in the stack
+        # pop the stack until it finds one less than itself.
+        if self.operator_val(operator) > self.operator_val(stack_operator):
             return False
-        
+        return True
 
-            
-
-
-    def push_to_stack(self, stack, char, postFixExp):
+    def push_to_stack(self, stack, operator, postFixExp):
         if not stack:
-            stack.append(char)
+            stack.append(operator)
         else:
-            while(stack and self.has_lower_precedence(char, stack[-1])):
+            while(stack and self.has_lower_precedence(operator, stack[-1])):
                 val = stack.pop()
                 postFixExp.append(val)
-
+            stack.append(operator)
 
     def convert_to_postfix(self, expression):
         stack = []
         postFixExp = []
         for i in range(0, len(expression)):
             char = expression[i]
-            if is_operand(char):
-                push_to_stack(stack, char, postFixExp)
+            if self.is_operand(char):
+                self.push_to_stack(stack, char, postFixExp)
             else:
                 postFixExp.append(char)
+        while len(stack) > 0:
+            postFixExp.append(stack.pop())
+        return postFixExp
 
-
+if __name__ == "__main__":
+    infixToPostfix = InfixToPostfix()
+    infixStr = "a*b+c*d-e"
+    postFix = infixToPostfix.convert_to_postfix(infixStr)
+    print(postFix)
