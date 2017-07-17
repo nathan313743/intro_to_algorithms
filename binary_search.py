@@ -1,7 +1,7 @@
 # Iterative Binary Search Function
 # It returns location of x in given array arr if present,
 # else returns -1
-http://www.geeksforgeeks.org/binary-search/
+# http://www.geeksforgeeks.org/binary-search/
 def binarySearch(arr, l, r, x):
  
     while l <= r:

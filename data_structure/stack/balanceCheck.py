@@ -27,6 +27,9 @@ def validation():
         else:
             stack.append(expression[i])
         i+=1
+    if len(stack) > 0:
+        return False, stack
+
     return True, stack
 
 
