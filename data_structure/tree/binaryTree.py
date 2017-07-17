@@ -1,3 +1,5 @@
+from binaryTreeOperations import BinaryTreeOperations
+
 class Node:
     def __init__(self):
         self.left = None
@@ -7,16 +9,8 @@ class Node:
 class BinarySearchTree:
     def __init__(self):
         self.root = None
-
-    def find_min_recursive(self, root):
-        if root is None:
-            return -1
-        if root.left is None:
-            return root.data
-        return self.find_min_recursive(root.left)
-
-    def find_min(self):
-        return self.find_min_recursive(self.root)
+        self.operations = BinaryTreeOperations()
+        self.operations.tree = self
 
     def search_recursive(self, root, data):
         if root is None:
@@ -42,25 +36,21 @@ class BinarySearchTree:
             root.right = self.insert_recursive(root.right, data)
         return root
 
-    def find_height_recursive(self, root):
-        if root is None:
-            return -1
-
-        result1 = self.find_height_recursive(root.left)
-        result2 = self.find_height_recursive(root.right)
-        return max(result1, result2)  + 1
-
-    def find_height(self):
-        return self.find_height_recursive(self.root)
-
     def insert(self, data):
         self.root = self.insert_recursive(self.root, data)
+
+    def level_order(self):
+        self.operations.level_order()
+
+    def preorder_traversal(self):
+        self.operations.preorder_traversal(self.root)
+
 
 if __name__ == '__main__':
     tree = BinarySearchTree()
     tree.insert(3)
     tree.insert(2)
-    tree.find_height()
+    #tree.find_height()
     tree.insert(10)
     tree.insert(20)
     tree.insert(30)
@@ -77,5 +67,14 @@ if __name__ == '__main__':
     print(result)
     result = tree.search(345)
     print(result)
-    print("Min value is: " + str(tree.find_min()))
-    print("Max height = " + str(tree.find_height()))
+
+    tree = BinarySearchTree()
+    tree.insert(10)
+    tree.insert(2)
+    tree.insert(3)
+    tree.insert(20)
+    tree.insert(30)
+    #tree.level_order()
+    tree.preorder_traversal()
+   # print("Min value is: " + str(tree.find_min()))
+   # print("Max height = " + str(tree.find_height()))
