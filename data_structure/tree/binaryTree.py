@@ -44,7 +44,38 @@ class BinarySearchTree:
 
     def preorder_traversal(self):
         self.operations.preorder_traversal(self.root)
+    
+    def find_min_node_recursive(self, root):
+        if root is None:
+            return None
+        if root.left is None:
+            return root
+        return self.find_min_node_recursive(root.left)
 
+    def find_min_node(self, root):
+        return self.find_min_node_recursive(root)
+
+    def delete(self, root, data):
+        if root is None:
+            return root
+        elif data < root.data:
+            root.left = self.delete(root.left, data)
+        elif data > root.data:
+            root.right = self.delete(root.right, data)
+        else:
+            if root.left is None and root.right is None:
+                # Case1 no children
+                root = None
+            elif root.left is None:
+                # case2 1 child
+                # Just make current node the right node.
+                root = root.right
+            else:
+                # case 3 2 children
+                min_node = self.find_min_node(root.right)
+                root.data = min_node.data
+                root.right = self.delete(root.right, min_node.data)
+        return root
 
 if __name__ == '__main__':
     tree = BinarySearchTree()
@@ -74,7 +105,14 @@ if __name__ == '__main__':
     tree.insert(3)
     tree.insert(20)
     tree.insert(30)
+    tree.insert(22)
+    tree.insert(32)
+    tree.insert(31)
     #tree.level_order()
+    print()
+    tree.preorder_traversal()
+    print()
+    tree.delete(tree.root, 30)
     tree.preorder_traversal()
    # print("Min value is: " + str(tree.find_min()))
    # print("Max height = " + str(tree.find_height()))
